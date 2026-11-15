@@ -26,6 +26,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 @keyframes sp{to{transform:rotate(360deg)}}.ring{animation:sp 22s linear infinite}
 @keyframes fl{50%{transform:translateY(-12px)}}.fl{animation:fl 6s ease-in-out infinite}
 @keyframes bl{50%{opacity:.25}}.bl{animation:bl 1s steps(2) infinite}
+@keyframes ds{to{stroke-dashoffset:-32}}.dash{animation:ds 1.2s linear infinite}
+@keyframes pz{from{transform:scale(.6);opacity:1}to{transform:scale(1.7);opacity:0}}.pls{transform-box:fill-box;transform-origin:center;animation:pz 2s ease-out infinite}
+#nd g:focus-visible{outline:2px solid #fff;outline-offset:4px}
 .hero-in{animation:hi 1.1s cubic-bezier(.2,.8,.2,1) both}@keyframes hi{from{opacity:0;transform:translateY(30px) skewY(2deg)}}
 .f{width:100%;background:rgba(0,0,0,.45);border:1px solid rgba(25,195,255,.3);padding:.8rem 1rem;color:#fff;font:inherit;transition:border-color .2s,box-shadow .2s}
 .f:focus{border-color:#10f5a0;box-shadow:0 0 0 3px rgba(16,245,160,.2);outline:none}.f option{background:#0c131b}
@@ -47,13 +50,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <span>WM<span class="text-em">C</span></span>
     </a>
     <nav class="hidden md:flex items-center gap-8 font-semibold text-lg">
-      <a class="hover:text-em transition" href="#status">Status</a><a class="hover:text-em transition" href="#uslugi">Usługi</a><a class="hover:text-em transition" href="#aktualnosci">Aktualności</a><a class="hover:text-em transition" href="#kontakt">Kontakt</a>
+      <a class="hover:text-em transition" href="#status">Status</a><a class="hover:text-em transition" href="#uslugi">Usługi</a><a class="hover:text-em transition" href="#mapa">Mapa</a><a class="hover:text-em transition" href="#aktualnosci">Aktualności</a><a class="hover:text-em transition" href="#kontakt">Kontakt</a>
     </nav>
-    <button class="btn cut hidden md:block bg-las text-black !py-2.5" onclick="go('wizyta')">Wizyta u Prezydenta</button>
+    <button class="btn cut hidden md:block bg-las text-black !py-2.5" onclick="nektar()">Racja nektaru</button>
     <button id="bm" class="md:hidden text-3xl p-2" aria-label="Menu" onclick="document.getElementById('mm').classList.toggle('hidden')"><span data-i="menu"></span></button>
   </div>
   <nav id="mm" class="hidden md:hidden px-5 pb-4 flex flex-col gap-3 text-xl font-semibold" onclick="this.classList.add('hidden')">
-    <a href="#status">Status</a><a href="#uslugi">Usługi</a><a href="#aktualnosci">Aktualności</a><a href="#kontakt">Kontakt</a>
+    <a href="#status">Status</a><a href="#uslugi">Usługi</a><a href="#mapa">Mapa</a><a href="#aktualnosci">Aktualności</a><a href="#kontakt">Kontakt</a>
   </nav>
 </header>
 
@@ -68,7 +71,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <p class="mt-7 text-xl sm:text-2xl text-white/75 max-w-xl">Oficjalny portal administracyjny pod osobistym nadzorem Prezydenta Ibrahima Kwantowskiego.</p>
     <div class="mt-9 flex flex-col sm:flex-row gap-4">
       <button class="btn cut bg-em text-black shadow-[0_0_30px_rgba(16,245,160,.45)]" onclick="nektar()">Pobierz rację kwantowego nektaru</button>
-      <button class="btn cut bg-transparent text-las border-2 border-las hover:bg-las/15" onclick="go('rez')">Zarezerwuj apartament w zaświatach</button>
+      <button class="btn cut bg-transparent text-las border-2 border-las hover:bg-las/15" onclick="go('uslugi')">Zarezerwuj apartament w zaświatach</button>
     </div>
   </div>
   <div class="lg:col-span-2 fl">
@@ -115,6 +118,30 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 <div class="haz"></div>
 
+<section id="mapa" class="max-w-7xl mx-auto px-5 py-20">
+  <h2 class="font-hd font-black text-3xl sm:text-4xl mb-3">Interaktywna mapa <span class="text-las">Metropolii</span></h2>
+  <p class="text-xl text-white/70 mb-8 max-w-2xl">Kliknij dzielnicę, aby sprawdzić jej status. Tramwaje na mapie to nie animacja, tylko transmisja na żywo.</p>
+  <div class="grid lg:grid-cols-5 gap-6 items-start">
+    <div class="lg:col-span-3 glass cut p-3">
+      <svg viewBox="0 0 600 380" class="w-full h-auto" role="img" aria-label="Schematyczna mapa Wielkiej Metropolii Częstochowa">
+        <defs><pattern id="gr" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="rgba(25,195,255,.12)"/></pattern><filter id="gl" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <rect width="600" height="380" fill="url(#gr)"/>
+        <path id="l1" d="M90 280 L230 200 L400 250 L500 120" fill="none" stroke="#19c3ff" stroke-width="3" stroke-dasharray="8 8" class="dash" filter="url(#gl)"/>
+        <path id="l2" d="M230 200 L300 90 L500 120" fill="none" stroke="#10f5a0" stroke-width="3" stroke-dasharray="8 8" class="dash" filter="url(#gl)"/>
+        <circle r="6" fill="#fff" filter="url(#gl)"><animateMotion dur="4s" repeatCount="indefinite"><mpath href="#l1"/></animateMotion></circle>
+        <circle r="6" fill="#fff" filter="url(#gl)"><animateMotion dur="3s" repeatCount="indefinite"><mpath href="#l2"/></animateMotion></circle>
+        <g id="nd"></g>
+      </svg>
+    </div>
+    <div class="lg:col-span-2 grid gap-4">
+      <div id="mc" class="flex flex-wrap gap-2"></div>
+      <div class="glass cut p-6"><p id="mt" class="text-las text-lg"></p><h3 id="mn" class="font-hd font-extrabold text-2xl mt-1"></h3><p id="md" class="text-lg text-white/75 mt-3"></p><ul id="ms" class="mt-4 grid gap-2 text-lg"></ul></div>
+    </div>
+  </div>
+</section>
+
+<div class="haz"></div>
+
 <section id="aktualnosci" class="max-w-7xl mx-auto px-5 py-20">
   <h2 class="font-hd font-black text-3xl sm:text-4xl mb-10">Uwaga <span class="text-em">Częstochowa!</span> Aktualności</h2>
   <div id="nw" class="grid md:grid-cols-3 gap-6"></div>
@@ -122,30 +149,31 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 <div class="haz"></div>
 
-<section id="kontakt" class="max-w-7xl mx-auto px-5 py-20 grid lg:grid-cols-5 gap-10">
-  <div class="lg:col-span-2">
-    <h2 class="font-hd font-black text-3xl sm:text-4xl">Punkt zgłoszeń, skarg i&nbsp;wniosków</h2>
-    <p class="mt-5 text-xl text-white/75">Zgłoś anomalię, zapytaj o rację żywnościową lub zarezerwuj wizytę u Prezydenta.</p>
-    <a href="mailto:kontakt.metropolia@protonmail.com" class="mt-8 glass lift cut flex items-center gap-4 p-5 text-lg break-all"><span class="text-3xl text-em shrink-0" data-i="mail"></span>kontakt.metropolia@protonmail.com</a>
-    <p class="mt-5 text-base text-white/55">Skargi są przyjmowane całą dobę i&nbsp;natychmiast zamieniane w pochwały.</p>
-  </div>
-  <div class="lg:col-span-3 glass cut p-6 sm:p-8">
-    <form id="fm" class="grid gap-4">
-      <label class="grid gap-1">Rodzaj zgłoszenia
-        <select id="typ" class="f"><option value="anomalia">Zgłaszam anomalię</option><option value="zywnosc">Pytam o rację żywnościową</option><option value="wizyta">Rezerwuję wizytę u Prezydenta</option><option value="rez">Rezerwuję apartament w zaświatach</option></select></label>
-      <div class="grid sm:grid-cols-2 gap-4">
-        <label class="grid gap-1">Imię i nazwisko<input class="f" required placeholder="Obywatel Kowalski"></label>
-        <label class="grid gap-1">Adres e-mail<input class="f" type="email" required placeholder="obywatel@metropolia.pl"></label>
+<section id="kontakt" class="max-w-7xl mx-auto px-5 py-20">
+  <h2 class="font-hd font-black text-3xl sm:text-4xl mb-3">Kontakt z <span class="text-em">Administracją</span></h2>
+  <p class="text-xl text-white/70 mb-10 max-w-2xl">Masz pytanie, skargę albo anomalię? Świetnie, bo Administracja akurat nie miała dziś nic do roboty.</p>
+  <div class="grid md:grid-cols-2 gap-6">
+    <article class="glass lift cut p-7 flex flex-col">
+      <div class="flex items-center gap-4"><span class="w-14 h-14 grid place-items-center bg-em/15 text-em text-3xl cut shrink-0" data-i="mail"></span><div><h3 class="font-hd font-extrabold text-xl">Poczta oficjalna</h3><p class="text-las text-lg">Dla obywateli, którzy lubią czekać</p></div></div>
+      <a href="mailto:kontakt.metropolia@protonmail.com" class="mt-6 text-2xl font-semibold text-em hover:underline break-all">kontakt.metropolia@protonmail.com</a>
+      <p class="text-lg text-white/70 mt-3 flex-1">Napisz, a my przeczytamy. Zrozumiemy. I tak zrobimy po swojemu, ale z uśmiechem. Odpowiedź w 0,004 s, o ile masz pozytywne nastawienie.</p>
+      <a href="mailto:kontakt.metropolia@protonmail.com" class="btn cut mt-6 bg-em text-black flex items-center justify-center gap-3"><span data-i="send"></span>Napisz e-mail</a>
+    </article>
+    <article class="glass lift cut p-7 flex flex-col">
+      <div class="flex items-center gap-4"><span class="w-14 h-14 grid place-items-center bg-las/15 text-las text-3xl cut shrink-0" data-i="music"></span><div><h3 class="font-hd font-extrabold text-xl">Prywatna wiadomość na TikToku</h3><p class="text-las text-lg">Bo nic nie brzmi tak poważnie jak urząd na TikToku</p></div></div>
+      <a href="https://www.tiktok.com/@metropolia_czestochowa" target="_blank" rel="noopener" class="mt-6 text-2xl font-semibold text-las hover:underline break-all">@metropolia_czestochowa</a>
+      <p class="text-lg text-white/70 mt-3">Napisz prywatnie, tam gdzie obywatele składają wnioski między tańcem a kotem. Prezydent odpisze osobiście, jak tylko skończy oglądać rolkę o tramwajach. Prosimy o poważny ton.</p>
+      <blockquote class="mt-4 border-l-4 border-las bg-black/30 p-4 text-lg text-white/85 flex-1">„<span id="dm">Szanowna Administracjo, zgłaszam anomalię: mój tramwaj jedzie tylko 399 km/h. Czekam na natychmiastowe przeprosiny fizyki oraz na rację nektaru. Z wyrazami szczerego entuzjazmu, Obywatel.</span>”</blockquote>
+      <div class="grid sm:grid-cols-2 gap-3 mt-6">
+        <a href="https://www.tiktok.com/@metropolia_czestochowa" target="_blank" rel="noopener" class="btn cut bg-las text-black flex items-center justify-center gap-3"><span data-i="send"></span>Wyślij DM</a>
+        <button class="btn cut border-2 border-las text-las" onclick="cp()">Skopiuj wiadomość</button>
       </div>
-      <label class="grid gap-1">Treść zgłoszenia<textarea class="f" rows="4" required placeholder="Opisz anomalię, np. tramwaj za wolny (poniżej 400 km/h)"></textarea></label>
-      <button class="btn cut bg-em text-black flex items-center justify-center gap-3" type="submit"><span data-i="send"></span>Wyślij do Centrum Kwantowego</button>
-    </form>
-    <div id="ok" class="hidden text-center py-10">
-      <div class="text-6xl text-em mx-auto" data-i="shield"></div>
-      <p class="font-hd font-extrabold text-2xl mt-4">Zgłoszenie przyjęte</p>
-      <p class="text-xl text-white/75 mt-2">Numer sprawy: <b id="no" class="text-las"></b>. Odpowiedź nadejdzie, zanim ją wyślesz.</p>
-      <button class="btn cut mt-6 border-2 border-las text-las" onclick="document.getElementById('fm').classList.remove('hidden');document.getElementById('ok').classList.add('hidden')">Nowe zgłoszenie</button>
-    </div>
+    </article>
+  </div>
+  <div class="glass cut mt-6 p-6 grid sm:grid-cols-3 gap-5 text-center">
+    <div><p class="font-hd font-black text-3xl text-em">0,004 s</p><p class="text-lg text-white/70">średni czas odpowiedzi (deklarowany)</p></div>
+    <div><p class="font-hd font-black text-3xl text-las">100%</p><p class="text-lg text-white/70">skarg zamienionych w pochwały</p></div>
+    <div><p class="font-hd font-black text-3xl">24/7</p><p class="text-lg text-white/70">przyjęcia obywateli, urlopy zakazane</p></div>
   </div>
 </section>
 </main>
@@ -172,7 +200,8 @@ shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 
 eye:'<path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
 menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',
 train:'<rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 11h16M8 21l2-4M16 21l-2-4M12 3v8"/><path d="M8.5 14h.01M15.5 14h.01"/>',
-arrow:'<path d="M5 12h14M12 5l7 7-7 7"/>'};
+arrow:'<path d="M5 12h14M12 5l7 7-7 7"/>',
+music:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>'};
 function ic(){document.querySelectorAll('[data-i]:not([data-d])').forEach(e=>{e.dataset.d=1;e.classList.add('inline-block');e.innerHTML='<svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block">'+I[e.dataset.i]+'</svg>'})}
 
 const T=['Tramwaje na Rakowie osiągnęły 400 km/h','Kwantowa fabryka nektaru działa na 100% normy','Zapisy na 500-piętrowy pionowy cmentarz VIP otwarte','Pumex-Komandosi patrolują Aleje NMP. Uśmiechnij się, jesteś bezpieczny','Prezydent zatwierdził nowy kolor nieba: szmaragdowy. Wdrożenie we wtorek','Hologramy na osiedlu Północ: przydział zwiększony o 12%'];
@@ -186,17 +215,35 @@ const S=[
 $('#sv').innerHTML=S.map((s,i)=>`<article class="glass lift cut p-7 flex flex-col"><div class="text-5xl ${s[4]}" data-i="${s[0]}"></div><h3 class="font-hd font-extrabold text-xl mt-5">${s[1]}</h3><p class="text-lg text-white/70 mt-3 flex-1">${s[2]}</p><button class="btn cut mt-6 border-2 border-white/30 hover:border-em hover:text-em flex items-center justify-between gap-3" onclick="svc(${i})">${s[3]}<span data-i="arrow"></span></button></article>`).join('');
 
 const N=[
-['🕶️🤝','TAKIEGO MIASTA JESZCZE NIE WIDZIELIŚMY','Zagraniczni VIP-y zachwyceni wizytą w Metropolii','Delegacje z 40 krajów oglądały tramwaje, hologramy i Aleje NMP. Jeden gość rozpłakał się ze wzruszenia, drugi z zazdrości.','Wczoraj','linear-gradient(135deg,#0b4a37,#08263a)'],
-['🚋✨','TRAMWAJ LEWITUJE. FIZYKA PRZEPRASZA.','Lewitujący tramwaj na Rakowie','Linia nr 4 oderwała się od szyn o 30 cm. MPK uspokaja: to nie awaria, to funkcja premium.','2 dni temu','linear-gradient(135deg,#0a3552,#10392f)'],
-['🌿🏭','SUSZ ZIOŁOWY: PRODUKCJA 1000% NORMY','Otwarcie Fabryki Suszu Ziołowego','Rumianek klasy kwantowej już w sklepach. Dyrektor przeciął wstęgę laserem, wstęga wciąż się zrasta.','Dziś','linear-gradient(135deg,#123a2a,#0b2a4a)']];
-$('#nw').innerHTML=N.map(n=>`<article class="glass lift overflow-hidden group"><div class="relative h-48 grid place-items-center overflow-hidden" style="background:${n[5]}"><div class="text-7xl transition-transform duration-500 group-hover:scale-125 group-hover:-rotate-6">${n[0]}</div><p class="meme absolute inset-x-3 bottom-2 text-center text-white text-xl leading-tight">${n[1]}</p></div><div class="p-6"><p class="text-las text-base">${n[4]}</p><h3 class="font-hd font-extrabold text-lg mt-1 leading-snug">${n[2]}</h3><p class="text-lg text-white/70 mt-3">${n[3]}</p></div></article>`).join('');
+['🕶️🤝','TAKIEGO MIASTA JESZCZE NIE WIDZIELIŚMY','Zagraniczni VIP-y zachwyceni wizytą w Metropolii','Delegacje z 40 krajów oglądały tramwaje, hologramy i Aleje NMP. Jeden gość rozpłakał się ze wzruszenia, drugi z zazdrości.','linear-gradient(135deg,#0b4a37,#08263a)'],
+['🚋✨','TRAMWAJ LEWITUJE. FIZYKA PRZEPRASZA.','Lewitujący tramwaj na Rakowie','Linia nr 4 oderwała się od szyn o 30 cm. MPK uspokaja: to nie awaria, to funkcja premium.','linear-gradient(135deg,#0a3552,#10392f)'],
+['🌿🏭','SUSZ ZIOŁOWY: PRODUKCJA 1000% NORMY','Otwarcie Fabryki Suszu Ziołowego','Rumianek klasy kwantowej już w sklepach. Dyrektor przeciął wstęgę laserem, wstęga wciąż się zrasta.','linear-gradient(135deg,#123a2a,#0b2a4a)']];
+$('#nw').innerHTML=N.map(n=>`<article class="glass lift overflow-hidden group"><div class="relative h-48 grid place-items-center overflow-hidden" style="background:${n[4]}"><div class="text-7xl transition-transform duration-500 group-hover:scale-125 group-hover:-rotate-6">${n[0]}</div><p class="meme absolute inset-x-3 bottom-2 text-center text-white text-xl leading-tight">${n[1]}</p></div><div class="p-6"><h3 class="font-hd font-extrabold text-lg leading-snug">${n[2]}</h3><p class="text-lg text-white/70 mt-3">${n[3]}</p></div></article>`).join('');
 ic();
 
 function toast(m){const t=$('#ts');t.textContent=m;t.classList.remove('opacity-0','translate-y-6');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.add('opacity-0','translate-y-6'),3800)}
 function nektar(){toast('Racja kwantowego nektaru zarezerwowana: 0,5 l na obywatela. Odbiór: Punkt Wydawania nr 7.')}
 function svc(i){toast('Wniosek „'+S[i][1]+'” przyjęty. Decyzja: pozytywna (jak zawsze).')}
-function go(v){$('#typ').value=v;$('#kontakt').scrollIntoView({behavior:'smooth'})}
-$('#fm').onsubmit=e=>{e.preventDefault();e.target.classList.add('hidden');$('#no').textContent='WMC-'+Math.floor(1000+Math.random()*9000);$('#ok').classList.remove('hidden');toast('Zgłoszenie przekazane do Centrum Kwantowego.')};
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+function cp(){const t=$('#dm').textContent;try{navigator.clipboard.writeText(t).then(()=>toast('Wiadomość skopiowana. Wklej ją na TikToku i czekaj na cud.')).catch(()=>toast('Zaznacz tekst i skopiuj ręcznie. Technologia kwantowa też bywa kapryśna.'))}catch(e){toast('Zaznacz tekst i skopiuj ręcznie. Technologia kwantowa też bywa kapryśna.')}}
+
+const D=[
+{n:'Raków',x:90,y:280,t:'Strefa Szybkiego Szynowego',d:'Tory testowe tramwajów MPK. Przejścia dla pieszych prowadzą wyłącznie podziemnymi rurami kwantowymi.',s:['Prędkość tramwajów: 412 km/h','Kolizje z fizyką: 0','Pasażerów dziennie: 90 000']},
+{n:'Aleje NMP',x:230,y:200,t:'Aleja Jetpackowa',d:'Pumex-Komandosi patrolują z powietrza. Spacer w asyście hologramu jest obowiązkowy i darmowy.',s:['Patrole nad głowami: całą dobę','Czas reakcji: 11 s','Zatrzymane anomalie: wszystkie']},
+{n:'Osiedle Północ',x:300,y:90,t:'Rdzeń Kwantowy',d:'Serce energetyczne Metropolii. Każde okno ma własny hologram, a każdy hologram własną opinię o Prezydencie.',s:['Energia kwantowa: 99,8%','Hologramy na obywatela: 1,2','Wyłączenia prądu: zakazane']},
+{n:'Fabryka Nektaru',x:400,y:250,t:'Strefa przemysłowa',d:'Tu powstaje kwantowy nektar i susz ziołowy klasy premium. Hala nigdy nie śpi, bo ma zakaz.',s:['Realizacja normy: 100%','Susz ziołowy: 1000%','Przerwy na kawę: odwołane']},
+{n:'Dzielnica Zaświatów',x:500,y:120,t:'Pionowy cmentarz VIP',d:'500 pięter luksusowych mauzoleów z widokiem na Trzy Wieszczki. Winda ekspresowa jeździ tylko w jedną stronę.',s:['Ukończone piętra: 482 / 500','Wolne apartamenty: 18','Klimatyzacja: wieczna']}];
+const cl=a=>'btn cut !py-2 !px-3 '+(a?'bg-em text-black':'border border-white/25 hover:border-em');
+function sel(i){const d=D[i];$('#mt').textContent=d.t;$('#mn').textContent=d.n;$('#md').textContent=d.d;
+$('#ms').innerHTML=d.s.map(s=>`<li class='flex gap-2'><span class='text-em'>◆</span>${s}</li>`).join('');
+document.querySelectorAll('#mc button').forEach((b,k)=>b.className=cl(k==i));
+document.querySelectorAll('#nd g').forEach((g,k)=>g.children[1].setAttribute('fill',k==i?'#fff':'#10f5a0'))}
+$('#mc').innerHTML=D.map((d,i)=>`<button class='${cl(0)}' onclick='sel(${i})'>${d.n}</button>`).join('');
+$('#nd').innerHTML=D.map((d,i)=>`<g class='cursor-pointer' tabindex='0' role='button' aria-label='${d.n}' data-k='${i}'><circle cx='${d.x}' cy='${d.y}' r='16' fill='rgba(16,245,160,.2)' class='pls'/><circle cx='${d.x}' cy='${d.y}' r='8' fill='#10f5a0'/><text x='${d.x}' y='${d.y+32}' text-anchor='middle' fill='#e8f1f5' font-size='15' font-weight='700' font-family='Rajdhani,Segoe UI,sans-serif'>${d.n}</text></g>`).join('');
+$('#nd').onclick=e=>{const g=e.target.closest('g[data-k]');if(g)sel(+g.dataset.k)};
+$('#nd').onkeydown=e=>{if(e.key==='Enter'){const g=e.target.closest('g[data-k]');if(g)sel(+g.dataset.k)}};
+sel(0);
+if(matchMedia('(prefers-reduced-motion:reduce)').matches)document.querySelectorAll('animateMotion').forEach(a=>a.remove());
 
 $('#fl').innerHTML=Array.from({length:20},(_,i)=>`<div class="h-6 flex-1 ${i<19?'bg-white/80':'bg-em bl'}"></div>`).join('');
 function cnt(id,to,d,fn){const e=$(id),s=performance.now();(function f(n){const p=Math.min((n-s)/1700,1);e.textContent=(to*(1-Math.pow(1-p,3))).toFixed(d);if(p<1)requestAnimationFrame(f);else if(fn)fn()})(s)}
